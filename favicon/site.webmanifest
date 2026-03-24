@@ -1,0 +1,16 @@
+{
+  "name": "ქაფი • cupy | coffee bar",
+  "short_name": "cupy",
+  "description": "საუკეთესო ყავის ბარი თბილისში — Best specialty coffee bar in Tbilisi, Georgia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F6F1",
+  "theme_color": "#1B3C28",
+  "icons": [
+    {
+      "src": "/favicon/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

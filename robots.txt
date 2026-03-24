@@ -1,0 +1,25 @@
+# robots.txt for cupy.ge
+# ქაფი • cupy | coffee bar — Tbilisi, Georgia
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cupy.ge/sitemap.xml
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /favicon/
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Yandex (popular in Georgia region)
+User-agent: Yandex
+Allow: /

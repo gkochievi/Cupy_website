@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage (Georgian) -->
+  <url>
+    <loc>https://cupy.ge/</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://cupy.ge/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cupy.ge/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cupy.ge/"/>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <!-- Add image entries once you have real photos -->
+    <!--
+    <image:image>
+      <image:loc>https://cupy.ge/images/cupy-coffee-bar-interior.jpg</image:loc>
+      <image:title>ქაფი cupy coffee bar interior — მყუდრო ყავის ბარი თბილისი</image:title>
+      <image:caption>Cozy specialty coffee bar in Tbilisi, Georgia</image:caption>
+      <image:geo_location>Tbilisi, Georgia</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://cupy.ge/images/cupy-cappuccino.jpg</image:loc>
+      <image:title>კაპუჩინო cupy coffee bar — best cappuccino in Tbilisi</image:title>
+      <image:caption>Cappuccino crafted with love at cupy coffee bar</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://cupy.ge/images/cupy-menu.jpg</image:loc>
+      <image:title>cupy coffee bar menu — ქაფი მენიუ ფასები</image:title>
+      <image:caption>Full menu with espresso, latte, flat white, cortado and more</image:caption>
+    </image:image>
+    -->
+  </url>
+
+  <!-- English version -->
+  <url>
+    <loc>https://cupy.ge/?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://cupy.ge/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cupy.ge/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cupy.ge/"/>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
