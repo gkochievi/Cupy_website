@@ -1,0 +1,22 @@
+# cupy.ge
+
+Official website for ქაფი • cupy coffee bar in Tbilisi, Georgia.
+
+## Business Information
+- Name: ქაფი • cupy | coffee bar
+- Address: 148 Davit Guramishvili Ave, Tbilisi, Georgia
+- Phone: +995 501 100 148
+- Email: contact@cupy.ge
+
+## Working Hours
+- Mon-Thu: 10:00-22:00
+- Fri: 10:00-00:00
+- Sat-Sun: 11:00-22:00
+
+## Main Services
+- Specialty coffee
+- Desserts
+- Sandwiches
+- Special coffee cocktails
+- Classic cocktails
+- Free alternative milk
