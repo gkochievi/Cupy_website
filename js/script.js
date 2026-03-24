@@ -3,9 +3,26 @@
    ============================================= */
 
 // ===== Language Switching =====
-let currentLang = 'ka';
+var supportedLangs = ['ka', 'en'];
+
+function getInitialLang() {
+  var urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (supportedLangs.indexOf(urlLang) !== -1) return urlLang;
+
+  var storedLang = localStorage.getItem('cupy_lang');
+  if (supportedLangs.indexOf(storedLang) !== -1) return storedLang;
+
+  var htmlLang = document.documentElement.lang;
+  if (supportedLangs.indexOf(htmlLang) !== -1) return htmlLang;
+
+  return 'ka';
+}
+
+let currentLang = getInitialLang();
 
 function setLang(lang) {
+  if (supportedLangs.indexOf(lang) === -1) return;
+
   currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach(function (btn) {
     btn.classList.toggle('active', btn.dataset.lang === lang);
@@ -14,6 +31,16 @@ function setLang(lang) {
     el.textContent = el.getAttribute('data-' + lang);
   });
   document.documentElement.lang = lang === 'ka' ? 'ka' : 'en';
+
+  localStorage.setItem('cupy_lang', lang);
+
+  var url = new URL(window.location.href);
+  if (lang === 'en') {
+    url.searchParams.set('lang', 'en');
+  } else {
+    url.searchParams.delete('lang');
+  }
+  window.history.replaceState({}, '', url.toString());
 }
 
 // ===== Mobile Menu =====
@@ -60,3 +87,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     }
   });
 });
+
+// Apply default language on first load so content is consistent.
+setLang(currentLang);

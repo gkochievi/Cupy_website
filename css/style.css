@@ -22,6 +22,17 @@
   --bd: #D4DDD6;
 }
 
+/* Prefer local installed New Hero; falls back to web-safe stack */
+@font-face {
+  font-family: 'New Hero';
+  src: url('../fonts/new-hero.woff2') format('woff2'),
+       local('New Hero'),
+       local('NewHero');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== Reset ===== */
 *,
 *::before,
@@ -443,6 +454,7 @@ html[lang="ka"] .hb {
 .mi:hover { background: var(--og); transform: translateY(-1px); }
 .mi h3 { font-family: 'New Hero', 'Fredoka', 'Noto Sans Georgian', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--gd); margin-bottom: 2px; }
 .mi p { font-size: 12px; color: var(--tl); font-weight: 500; }
+html[lang="en"] .menu-item-alt { display: none; }
 
 .mp {
   font-family: 'New Hero', 'Fredoka', sans-serif;
