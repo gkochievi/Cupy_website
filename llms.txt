@@ -20,3 +20,8 @@ Official website for ქაფი • cupy coffee bar in Tbilisi, Georgia.
 - Special coffee cocktails
 - Classic cocktails
 - Free alternative milk
+
+## Pages
+- Home: https://cupy.ge/
+- Full Menu: https://cupy.ge/menu
+- Links (QR landing — review, socials): https://cupy.ge/links
