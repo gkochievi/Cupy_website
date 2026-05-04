@@ -35,94 +35,380 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Stylesheet -->
-  <link rel="preload" href="css/style.min.css" as="style">
-  <link rel="stylesheet" href="css/style.min.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/style.min.css"></noscript>
+  <style>
+    @font-face {
+      font-family: 'New Hero';
+      src: url('fonts/new-hero-super.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'New Hero';
+      src: url('fonts/new-hero-super-italic.otf') format('opentype');
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'New Hero', 'Noto Sans Georgian', sans-serif;
+      padding: 2rem 1.25rem;
+      position: relative;
+      overflow-x: hidden;
+      background: #1B3C28;
+      color: #fff;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url('images/cupywall.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Language toggle */
+    .lp-lang {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 4px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'New Hero', 'Noto Sans Georgian', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: clamp(1.5rem, 5vw, 2.25rem) clamp(1.25rem, 5vw, 2rem);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .logo-wrap svg {
+      width: clamp(80px, 28vw, 120px);
+      height: clamp(80px, 28vw, 120px);
+    }
+    .logo-wrap svg path { fill: #ff7900; }
+
+    .subtitle {
+      font-size: clamp(12px, 3.2vw, 15px);
+      letter-spacing: 0.14em;
+      color: #fff;
+      margin-top: 0.6rem;
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: clamp(1rem, 4vw, 1.5rem) auto;
+    }
+
+    .section-label {
+      font-size: clamp(10px, 2.5vw, 11px);
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      margin-bottom: clamp(0.65rem, 2.5vw, 0.9rem);
+    }
+
+    .stars { display: flex; gap: 5px; margin-bottom: 12px; }
+    .star { width: clamp(18px, 5vw, 22px); height: clamp(18px, 5vw, 22px); }
+
+    .rating-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: clamp(9px, 2.5vw, 12px) clamp(16px, 5vw, 24px);
+      background: #ff7900;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #fff;
+      font-style: italic;
+      font-size: clamp(11px, 3vw, 13px);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .rating-cta:hover { opacity: 0.85; }
+    .rating-cta svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .socials {
+      display: flex;
+      gap: clamp(20px, 6vw, 32px);
+      justify-content: center;
+    }
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .social-icon:hover { opacity: 0.8; transform: scale(1.1); }
+    .social-icon img { width: 40px; height: 40px; display: block; }
+
+    .secs {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      margin-top: 14px;
+    }
+    .btn-sec {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn-sec:hover { background: rgba(255, 255, 255, 0.15); }
+    .btn-sec svg { width: 14px; height: 14px; }
+
+    .img-row {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .img-square {
+      flex: 1;
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .img-slot {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity 1.4s ease, transform 1.4s ease;
+    }
+    .img-slot.active { opacity: 1; }
+    .img-slot.zoom-out { opacity: 0; transform: scale(1.08); }
+
+    .foot {
+      margin-top: 6px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .foot a { color: inherit; text-decoration: none; }
+    .foot a:hover { color: #fff; }
+
+    @media (min-width: 600px) { .wrap { max-width: 400px; } }
+    @media (min-width: 1024px) { .wrap { max-width: 420px; } }
+  </style>
 </head>
 <body class="lp-body">
 
-  <!-- Language Toggle (floating) -->
+  <div class="bg" aria-hidden="true"></div>
+
+  <!-- Language Toggle -->
   <div class="lp-lang lang-toggle" role="group" aria-label="Language">
     <button class="lang-btn active" data-lang="ka" onclick="setLang('ka')">ქარ</button>
     <button class="lang-btn" data-lang="en" onclick="setLang('en')">ENG</button>
   </div>
 
-  <main class="lp-card">
+  <div class="wrap">
 
-    <!-- Logo -->
-    <div class="lp-logo-wrap">
-      <div class="lp-icon" aria-hidden="true">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 30h32a4 4 0 0 1 4 4v20a16 16 0 0 1-16 16H32a16 16 0 0 1-16-16V34a4 4 0 0 1 4-4z" stroke="#E8872B" stroke-width="3"/>
-          <path d="M56 38h4a8 8 0 0 1 0 16h-4" stroke="#E8872B" stroke-width="3"/>
-          <path d="M30 14c0 0 2-4 0-8" stroke="#F0A050" stroke-width="3" stroke-linecap="round"/>
-          <path d="M36 16c0 0 2-4 0-8" stroke="#F0A050" stroke-width="3" stroke-linecap="round"/>
-          <path d="M42 14c0 0 2-4 0-8" stroke="#F0A050" stroke-width="3" stroke-linecap="round"/>
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-wrap" aria-label="cupy coffee bar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img">
+          <g>
+            <path d="M69.8642,31.4979c6.9432,16.0445-.9626,15.6623-9.4727,22.526-9.9846,8.053,22.1024,15.8641,23.7586,6.4504l-7.6275-.9196c7.3232-.0768,19.2188-3.2681,16.2495-12.0455-2.857-8.4454-13.8535-4.5229-22.9079-16.0114Z"/>
+            <path d="M63.329,23.6869c-10.5488.8349-15.9623,10.7798-22.7621,17.6688.1102-.3833.2048-.7718.2835-1.1657,1.0187-5.2665-.4462-10.6801-3.2397-15.18-.0945-.1417-.2153-.3203-.3151-.4621-.42-.6458-.8979-1.2392-1.4124-1.822-.6248-.8034-1.3442-1.4597-2.074-2.1371-.2468-.2153-.5461-.4568-.8034-.6616-.3361-.2573-.6826-.5041-1.0291-.7403,9.2204-2.1581,25.5607-1.6225,31.3524,4.4999Z"/>
+            <path d="M53.5056,41.1158c.9801,4.1301,5.1254,6.6852,9.261,5.7037,4.1301-.9801,6.6852-5.1254,5.705-9.2555-.9801-4.1301-5.1254-6.6852-9.2555-5.705-4.1356.9815-6.6907,5.1267-5.7105,9.2568ZM59.5737,39.1594c-.335-1.4115.5363-2.8249,1.9477-3.1599,1.406-.3337,2.8194.5376,3.1544,1.949.3337,1.406-.5376,2.8195-1.9436,3.1531-1.4114.335-2.8249-.5363-3.1586-1.9423Z"/>
+            <g>
+              <path d="M22.5952,17.27c.1593.0306.3927.0789.548.1163.4727.0636.8227.187,1.2689.3482,2.1819.6341,4.1667,1.8809,5.9672,3.2406.2577.206.5559.4488.8068.6648.7293.6788,1.449,1.3332,2.074,2.1382.512.5828.9899,1.1719,1.4109,1.8198.0983.1395.2221.3196.3166.4621,2.7937,4.4992,4.2557,9.9127,3.2366,15.1807-.6325,3.1981-2.4366,6.1514-4.9751,8.186-.1297.0837-.245.1948-.26.2015-.0883.0396-.3235.1505-.3461-.0438-.0671-3.4789-.6733-6.5488-2.5241-9.5104-.1479-.256-.2753-.425-.4317-.6642-.7556-1.1548-1.7491-2.1982-2.7937-3.1203-.2106-.1711-.4026-.3735-.6339-.5492-2.9907-2.3095-6.5548-3.914-8.7597-7.111-.9021-1.4154-1.4901-2.8941-1.8597-4.4253-1.0229-4.1561,2.8371-7.8928,6.9551-6.9341Z"/>
+              <path d="M22.6854,51.6c-.1593-.0309-.3925-.0795-.5478-.117-.4726-.0642-.8225-.1882-1.2684-.35-2.181-.6373-4.1639-1.8869-5.9625-3.2492-.2574-.2064-.5552-.4496-.8058-.666-.7283-.6798-1.4471-1.3353-2.0709-2.1412-.5111-.5836-.9882-1.1733-1.4082-1.8219-.0981-.1397-.2217-.3199-.316-.4626-2.7871-4.5032-4.2413-9.9189-3.2146-15.1854.6372-3.1972,2.4455-6.1478,4.9869-8.1788.1298-.0835.2453-.1945.2603-.2012.0884-.0394.3237-.15.3461.0443.0621,3.479.6638,6.5497,2.5104,9.514.1475.2562.2746.4254.4308.6649.7539,1.1559,1.7459,2.2008,2.7892,3.1243.2104.1714.4021.374.6331.5501,2.9873,2.3138,6.5491,3.9235,8.7494,7.1237.9001,1.4167,1.4859,2.8963,1.8532,4.428,1.0168,4.1576-2.8485,7.8887-6.9651,6.924Z"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path d="M63.8057,72.3969c-1.4239,0-2.2155.8862-2.2155,1.8514,0,.9178.7283,1.5825,1.82,1.5825.0364,0,.0741-.0007.1128-.0022.9069-.0351,1.618.7746,1.4779,1.6713h0c-.0883.5649-.4967,1.0396-1.052,1.1758-.4402.1079-.8931.1619-1.346.1619-2.532,0-4.431-1.6774-4.431-4.3517,0-2.8485,2.1998-5.08,5.2382-5.08.447,0,.894.0492,1.3111.1373.7537.1591,1.2525.8781,1.136,1.6395l-.0039.0252c-.1179.7706-.825,1.3227-1.5977,1.219-.1446-.0194-.2947-.0299-.4501-.0299Z"/>
+              <path d="M70.6887,78.8375c-2.4527,0-3.9879-1.5508-3.9879-3.6397,0-.2056.016-.4431.0476-.6646l.5268-3.4515c.1249-.8182.8285-1.4225,1.6561-1.4225h0c1.0249,0,1.8095.912,1.6566,1.9254l-.469,3.107c-.0157.0949-.0157.1899-.0157.2689,0,.5857.3165.8862.9019.8862.5857,0,.9655-.3638,1.0921-1.1551l.5322-3.6019c.1214-.8217.8267-1.4304,1.6573-1.4304h.0107c1.0244,0,1.809.9112,1.6567,1.9243l-.4861,3.2347c-.3641,2.3578-1.8833,4.0195-4.7795,4.0195Z"/>
+              <path d="M80.7307,70.7479h0c.002.0541.0688.0736.1017.0306.6657-.8695,1.6496-1.3727,2.7056-1.3727,1.8197,0,3.2599,1.5985,3.2599,4.0195,0,3.165-2.1365,5.4121-4.4153,5.4121-.94,0-1.8098-.4645-2.2774-1.2869-.0274-.0481-.0982-.0373-.1067.0174l-.5219,3.3805c-.0852.5518-.5601.959-1.1185.959h-1.0988c-.693,0-1.2232-.6172-1.1188-1.3023l1.5223-9.9851c.0843-.5528.5596-.9611,1.1188-.9611h.8182c.6084,0,1.1079.481,1.1309,1.0889ZM81.7339,75.8307c.8475,0,1.4077-.5836,1.6242-1.2971.5196-1.7124-1.9321-2.7778-2.7375-1.1797-.1512.3001-.2317.6437-.2317.9892,0,.8862.4904,1.4875,1.345,1.4875Z"/>
+              <path d="M90.065,81.9075h-.1054c-1.1648,0-1.9077-1.2435-1.3556-2.2692l.6149-1.1423c.183-.34.2316-.7364.1361-1.1105l-1.4822-5.8062c-.2485-.9735.487-1.9203,1.4917-1.9203h.2012c.7431,0,1.3801.5308,1.5143,1.2616l.6863,3.7391h.0633l1.883-4.1033c.251-.5469.7975-.8974,1.3993-.8974h0c1.1712,0,1.9135,1.2558,1.3488,2.2819l-5.0467,9.1694c-.2706.4917-.7875.7972-1.3488.7972Z"/>
+            </g>
+            <g>
+              <path d="M3.3465,79.2579c0-.2697.0318-.5551.0953-.8484.1135-.5239.6114-.8743,1.1466-.8442l1.2348.0696c.6129.0345,1.0557.5569,1.0525,1.1708,0,.003,0,.006,0,.009,0,.6643.3322,1.0601,1.0761,1.0601s1.345-.3958,1.4559-1.171l.4048-2.1522c.0953-.6726-.4267-1.2739-1.1061-1.2739h-1.513c-.678,0-1.1998-.5991-1.1065-1.2707l.0853-.6142c.0767-.5523.5489-.9635,1.1065-.9635h2.1387c.557,0,1.029-.4104,1.1063-.962l.2366-2.0738c.0773-.5516.5493-.962,1.1063-.962h1.1621c.6786,0,1.2005.6001,1.1063,1.2722l-1.3882,9.5855c-.2852,2.0416-2.1522,3.5924-4.9217,3.5924-2.7062,0-4.4786-1.5349-4.4786-3.6238Z"/>
+              <path d="M14.36,75.5212c0-.2603.041-.5614.1231-.8644.0916-.3381.3963-.5758.7465-.5758h1.8523c.4707,0,.8203.4185.7588.8851-.0101.0767-.0153.1513-.0153.223,0,.617.3481,1.0761,1.1234,1.0761.8705,0,1.7884-.6017,1.7884-1.6301,0-1.4242-2.3581-2.4211-2.3581-5.2063,0-.0916.003-.186.0089-.2834.0244-.4022.3653-.7138.7682-.7138h1.8248c.4306,0,.7696.3535.769.7841,0,.0024,0,.0048,0,.0071,0,2.3737,2.3737,3.2443,2.3737,5.4754,0,1.4242-1.3769,4.5892-5.3172,4.5892-2.4687,0-4.4467-1.7091-4.4467-3.7663Z"/>
+              <path d="M27.0158,78.8783c0-.3119.0597-.6646.1411-.98.0744-.2882.3402-.479.6293-.4626l2.347.1331c.343.0194.6229.3249.622.6787v.0056c0,.9631.9175,1.208,1.4433,1.2334,1.3434.0647,3.0177-.6081,3.0177-1.7231,0-.4563-.4426-.8784-1.3286-.8784h0c-.433,0-.7661-.3944-.706-.8361l.0888-1.2558c.0223-.3157.2775-.5601.5848-.5601h0c.984,0,1.6891-.4901,1.6891-1.2671,0-.4897-.4592-.6757-.9675-.6757-.5904,0-.984.4392-1.2958.9293-.4754.7433-2.0831,3.0237-4.7072,3.0237-2.8209,0-4.1164-1.3852-4.1164-3.2264,0-2.4497,1.8534-4.0038,4.4119-4.0038,1.9543,0,2.895,1.2439,3.0921,2.2671.0103.0535.0742.0686.1035.0232.6708-1.0418,1.6558-2.2903,3.6105-2.2903,2.2961,0,3.4769,1.3177,3.4769,3.0912,0,1.5207-.7544,2.7199-1.9353,3.3452l-.213.0505c.9509.4054,1.6563,1.419,1.6563,2.8042,0,3.0407-3.5425,4.3246-6.6259,4.3246-1.7656,0-5.0186-1.2671-5.0186-3.7502ZM28.5413,73.878c.8035,0,1.2955-.9122,1.2955-1.7231,0-.4221-.1478-.7771-.5904-.7771-.82,0-1.3121.9289-1.3121,1.7231,0,.4221.1478.7771.607.7771Z"/>
+              <path d="M39.7882,74.7616c0-3.5288,1.8357-6.33,5.4595-6.33,2.7379,0,4.4153,1.6458,4.4153,4.1145,0,1.0614-.3388,2.7265-1.0338,4.1548-.2715.5579-.8411.9092-1.4616.9092h0c-1.1318,0-1.9026-1.1229-1.5239-2.1895.3533-.9947.5694-1.9159.5694-2.6373,0-.7276-.2215-1.345-1.0601-1.345-1.4719,0-1.9783,1.9147-1.9783,3.3232,0,.2549.0168.6238.0596,1.0651.0927.9549-.6575,1.7834-1.6169,1.7834h-.1144c-.8017,0-1.4889-.583-1.6072-1.3759-.0706-.473-.1077-.9746-.1077-1.4726Z"/>
+            </g>
+            <path d="M51.6125,76.1684c.2824,1.1898,1.4766,1.9259,2.668,1.6432,1.1898-.2824,1.9259-1.4766,1.6435-2.6664-.2824-1.1898-1.4766-1.9259-2.6664-1.6435-1.1914.2827-1.9275,1.4769-1.6451,2.6667ZM53.3606,75.6047c-.0965-.4066.1545-.8138.5611-.9103.405-.0961.8122.1549.9087.5615.0961.405-.1549.8122-.5599.9084-.4066.0965-.8138-.1545-.9099-.5595Z"/>
+          </g>
         </svg>
       </div>
-      <h1 class="lp-logo"><span data-ka="ქაფი" data-en="cupy">ქაფი</span><span class="dot">.</span>cupy</h1>
-      <p class="lp-subtitle" data-ka="ყავის ბარი" data-en="coffee bar">ყავის ბარი</p>
-    </div>
 
-    <div class="lp-divider"></div>
+      <p class="subtitle" data-ka="ყავის ბარი" data-en="coffee bar">ყავის ბარი</p>
 
-    <!-- Rate on Google Maps -->
-    <section class="lp-sec">
-      <p class="lp-label" data-ka="შეგვაფასე Google Maps-ზე" data-en="Rate us on Google Maps">შეგვაფასე Google Maps-ზე</p>
-      <div class="lp-stars" aria-hidden="true">
-        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      <div class="divider"></div>
+
+      <!-- Rate on Google Maps -->
+      <p class="section-label" data-ka="შეგვაფასე Google Maps-ზე" data-en="Rate us on Google Maps">შეგვაფასე Google Maps-ზე</p>
+      <div class="stars" aria-hidden="true">
+        <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ff7900"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ff7900"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ff7900"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ff7900"/></svg>
+        <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ff7900"/></svg>
       </div>
-      <a href="https://maps.app.goo.gl/9YFwAdJ19i42Wx4o9" class="lp-btn" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+      <a class="rating-cta" href="https://maps.app.goo.gl/9YFwAdJ19i42Wx4o9" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
         <span data-ka="შეფასების დატოვება" data-en="Leave a Review">შეფასების დატოვება</span>
       </a>
-    </section>
 
-    <div class="lp-divider"></div>
+      <div class="divider"></div>
 
-    <!-- Follow on Socials -->
-    <section class="lp-sec">
-      <p class="lp-label" data-ka="გამოგვყევი სოც. ქსელებში" data-en="Follow us on socials">გამოგვყევი სოც. ქსელებში</p>
-      <div class="lp-socials">
-        <a href="https://www.instagram.com/cupy.coffeebar/" class="lp-social lp-ig" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          <span>Instagram</span>
+      <!-- Follow on Socials -->
+      <p class="section-label" data-ka="გამოგვყევი სოც. ქსელებში" data-en="Follow us on socials">გამოგვყევი სოც. ქსელებში</p>
+      <div class="socials">
+        <a class="social-icon" href="https://www.instagram.com/cupy.coffeebar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="images/socials/ig.svg" width="40" height="40" alt="Instagram">
         </a>
-        <a href="https://www.facebook.com/coffee.moves.friendship/" class="lp-social lp-fb" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          <span>Facebook</span>
+        <a class="social-icon" href="https://www.facebook.com/coffee.moves.friendship/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <img src="images/socials/fb.svg" width="40" height="40" alt="Facebook">
         </a>
-        <a href="https://www.tiktok.com/@coffee.moves.friendship" class="lp-social lp-tt" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.44 6.28 6.28 0 001.83-4.44V8.88a8.28 8.28 0 004.79 1.52V7a4.85 4.85 0 01-1.04-.31z"/></svg>
-          <span>TikTok</span>
+        <a class="social-icon" href="https://www.tiktok.com/@coffee.moves.friendship" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <img src="images/socials/tt.svg" width="40" height="40" alt="TikTok">
         </a>
       </div>
-    </section>
 
-    <div class="lp-divider"></div>
-
-    <!-- Secondary actions -->
-    <section class="lp-sec">
-      <div class="lp-secs">
-        <a href="/menu" class="lp-btn-sec">
+      <!-- Secondary actions -->
+      <div class="secs">
+        <a href="/menu" class="btn-sec">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v4H4zM4 12h16v4H4zM4 20h10v0"/></svg>
           <span data-ka="ჩვენი მენიუ" data-en="Our Menu">ჩვენი მენიუ</span>
         </a>
-        <a href="https://maps.google.com/?q=148%20Davit%20Guramishvili%20Ave%2C%20Tbilisi" class="lp-btn-sec" target="_blank" rel="noopener noreferrer">
+        <a href="https://maps.google.com/?q=148%20Davit%20Guramishvili%20Ave%2C%20Tbilisi" class="btn-sec" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           <span data-ka="მოგვინახულე" data-en="Visit Us">მოგვინახულე</span>
         </a>
       </div>
-    </section>
 
-    <p class="lp-foot">
-      <a href="/" data-ka="cupy.ge" data-en="cupy.ge">cupy.ge</a>
-    </p>
+    </div>
 
-  </main>
+    <!-- Image cycler -->
+    <div class="img-row" id="imgRow" aria-hidden="true">
+      <div class="img-square"><div class="img-slot active"></div><div class="img-slot"></div></div>
+      <div class="img-square"><div class="img-slot active"></div><div class="img-slot"></div></div>
+      <div class="img-square"><div class="img-slot active"></div><div class="img-slot"></div></div>
+    </div>
 
-  <!-- JavaScript -->
+    <p class="foot"><a href="/" data-ka="cupy.ge" data-en="cupy.ge">cupy.ge</a></p>
+
+  </div>
+
   <script src="js/script.min.js" defer></script>
+  <script>
+    (function () {
+      var IMAGE_FOLDER = 'images/cupyrealimages/';
+      var imageList = [1, 2, 3, 4, 5, 6, 7].map(function (n) { return IMAGE_FOLDER + n + '.jpg'; });
+
+      function nextImage(square) {
+        var slots = square.querySelectorAll('.img-slot');
+        var active = square.querySelector('.img-slot.active');
+        var inactive = Array.prototype.find.call(slots, function (s) { return !s.classList.contains('active'); });
+        var src;
+        do {
+          src = imageList[Math.floor(Math.random() * imageList.length)];
+        } while (imageList.length > 1 && inactive.style.backgroundImage === 'url("' + src + '")');
+        inactive.style.backgroundImage = "url('" + src + "')";
+        requestAnimationFrame(function () {
+          active.classList.add('zoom-out');
+          active.classList.remove('active');
+          inactive.classList.add('active');
+          setTimeout(function () {
+            active.classList.remove('zoom-out');
+            active.style.backgroundImage = '';
+          }, 1500);
+        });
+      }
+
+      function startCycling() {
+        var squares = document.querySelectorAll('.img-square');
+        squares.forEach(function (sq, i) {
+          var src = imageList[Math.floor(Math.random() * imageList.length)];
+          sq.querySelector('.img-slot.active').style.backgroundImage = "url('" + src + "')";
+          setTimeout(function cycle() {
+            nextImage(sq);
+            setTimeout(cycle, 3000 + Math.random() * 2000);
+          }, 2000 + i * 1200);
+        });
+      }
+
+      if (document.readyState !== 'loading') startCycling();
+      else document.addEventListener('DOMContentLoaded', startCycling);
+    })();
+  </script>
 </body>
 </html>
