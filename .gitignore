@@ -1,0 +1,15 @@
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code / agent state
+.claude/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
